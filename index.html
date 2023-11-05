@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://kit.fontawesome.com/ed845c231f.js" crossorigin="anonymous"></script>
+    <title>Finanzas personales</title>
+</head>
+
+<body>
+    
+    <main>
+        <header>
+            <h1><i class="fa-solid fa-money-bill-trend-up"></i></h1>
+            <nav class="nav">
+                <ul class="menu">
+                    <li class="menu-item">Gastos</li>
+                    <li class="menu-item">Ingresos</li>
+                    <li class="menu-item">Todas las operaciones</li>
+                    <li class="menu-item"></li>
+                    <li class="menu-item"></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="cabecera">
+            <h2 id="saldo"></h2>
+        </section>
+
+        <div class="cuerpo">
+
+            <section class="cargar-operacion">
+                <form action="" class="form-operacion" id="form-operacion">
+                    <h3>Cargar operacion</h3>
+                    <!-- msj -->
+                    <p id="msj" class="msj"></p>
+                    <select name="tipo" id="tipo">
+                        <option value="">Tipo de operación</option>
+                        <option value="">---------------------------</option>
+                        <option value="Ingreso">Ingreso</option>
+                        <option value="Egreso">Egreso</option>
+                    </select>
+                    <input type="text" id="detalle" placeholder="Detalle">
+                    <input type="number" id="monto" step="0.01" placeholder="Monto">
+                    <button type="submit" id="btn-operacion" class="btn-form">Agregar operacion</button>
+                </form>
+            </section>
+    
+            <section class="detalle">
+                <h3>Detalle de operaciones</h3>
+                <div class="detalle-titulos">
+                            <p>Fecha</p>
+                            <p>Tipo</p>
+                            <p>Detalle</p>
+                            <p>Monto</p>
+                </div>
+                <ul class="tabla" id="tabla">
+                    
+                </ul>
+                <div class="eliminar-todo">
+                    <button class="btn-form" id="deleteAll">Borrar todo</button>
+                </div>
+                
+            </section>
+        </div>
+
+    </main>
+
+    
+
+    <script src="./js/app.js"></script>
+</body>
+</html>

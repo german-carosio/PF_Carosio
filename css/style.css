@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+    --azul: #1A73E8;
+    --azul-claro: #669DF6;
+    --azul-claro2:rgb(173, 204, 254);
+    --azul-oscuro: #1555a8;
+    --gris: #C8C8C8;
+    --gris-claro: #ededf0;
+    --gris-oscuro: #888;
+    --gris-oscuro2: #444;
+    --blanco: #fff;
+    --negro: #000;
+    --rojo: #db0404;
+    --violeta: #8b1ae8;
+  
+    --fuente-normal: 1em;
+    --fuente-chica: 0.8em;
+    --fuente-grande: 1.2em;
+    --fuente-grande2: 1.5em;
+  }
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    font-size: var(--fuente-normal);
+    color: var(--negro);
+}
+
+input, select {
+    padding: 8px 5px;
+    border: none;
+    border: solid 1px var(--gris);
+    border-radius: 4px;
+    font-size: var(--fuente-normal);
+}
+
+button {
+    padding: 8px 12px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: var(--fuente-normal);
+}
+
+.btn-form {
+    background: var(--azul);
+    color: var(--blanco);
+    border-radius: 4px;
+    width: max-content;
+}
+
+.btn-form2 {
+    color: var(--azul);
+    border-radius: 4px;
+    width: max-content;
+}
+
+.msj {
+    color: var(--rojo);
+    display: none;
+}
+
+/*BODY*/
+
+body {
+    margin: 0 auto;
+}
+
+/*HEADER*/
+
+header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu {
+    display: flex;
+    gap: 20px;
+}
+
+/*MAIN*/
+
+main {
+    max-width: 1400px;
+    margin: 20px;
+    border: solid 1px var(--azul-claro2);
+    border-radius: 4px;
+}
+
+
+.cuerpo {
+    display: flex;
+    justify-content: space-around;
+    padding: 40px 0;
+}
+
+section {
+    padding: 20px 20px;
+    margin: 5px 10px;
+}
+
+/*INGRESOS - EGRESOS*/
+
+.cargar-operacion {
+    width: 40%;
+}
+
+.form-operacion {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 0 auto;
+}
+
+
+.form-operacion .btn-form {
+    width: 100%;
+}
+
+
+/*Detalle*/
+.detalle {
+    padding: 20px;
+    width: 60%;
+}
+
+.detalle h3 {
+    margin-bottom: 20px;
+}
+
+.detalle-titulos {
+    background-color: var(--gris-claro);
+    font-weight: bolder;
+}
+
+.detalle-titulos, .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: solid 1px var(--gris);
+    padding: 8px 15px;
+    margin-bottom: 10px;
+    font-size: var(--fuente-normal);
+}
+
+.detalle-titulos p, .item p {
+    width: 30%;
+    text-align: center;
+}
+
+.detalle .eliminar-todo {
+    text-align: right;
+}
+
+@media (min-width: 768px){
+    
+}
