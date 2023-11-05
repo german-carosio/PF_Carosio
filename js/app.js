@@ -127,6 +127,15 @@ function saldoTotal() {
             resultado -= parseFloat(operacion.monto);
         }
     })
+
+    //Colores segun el saldo
+    if (resultado < 0) {
+        saldo.style.color='var(--rojo)';
+    } else if (resultado > 0) {
+        saldo.style.color='var(--verde)';
+    } else {
+        saldo.style.color='var(--negro)';
+    }
     return (saldo.innerHTML = `Saldo $${parseFloat(resultado).toFixed(2)}`);
 }
 

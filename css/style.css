@@ -13,7 +13,7 @@
     --negro: #000;
     --rojo: #db0404;
     --violeta: #8b1ae8;
-    --verde: rgb(43, 181, 43);
+    --verde: rgb(33, 132, 33);
     
     --fuente-normal: 1em;
     --fuente-chica: 0.8em;
@@ -68,6 +68,13 @@ button {
     width: max-content;
 }
 
+.btn-form3 {
+    color: var(--azul);
+    border: solid 1px var(--azul);
+    border-radius: 4px;
+    width: max-content;
+}
+
 .msj {
     color: var(--rojo);
     display: none;
@@ -108,13 +115,17 @@ main {
 }
 
 .cabecera {
-    padding: 10px;
+    padding: 20px;
+    border: solid 1px var(--gris);
+    border-radius: 4px;
+    width: max-content;
+    margin: 0 auto;
 }
 
 
 .cuerpo {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     justify-content: space-around;
     padding: 20px 0;
 }
@@ -189,6 +200,11 @@ main {
 }
 
 @media (min-width: 768px){
+
+    .cabecera {
+        margin: 0;
+    }
+
     .cuerpo {
        flex-direction: row;
     }
@@ -198,6 +214,7 @@ main {
     }
 
     .detalle {
+        margin-top: 0;
         width: 100%;
     }
 
