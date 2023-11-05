@@ -74,9 +74,7 @@ button {
 
 /*BODY*/
 
-body {
-    margin: 0 auto;
-}
+
 
 /*HEADER*/
 
@@ -96,7 +94,7 @@ header {
 
 main {
     max-width: 1400px;
-    margin: 20px;
+    margin: 20px auto;
     border: solid 1px var(--azul-claro2);
     border-radius: 4px;
 }
