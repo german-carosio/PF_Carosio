@@ -40,7 +40,7 @@ a {
 }
 
 input, select {
-    padding: 8px 5px;
+    padding: 6px;
     border: none;
     border: solid 1px var(--gris);
     border-radius: 4px;
