@@ -53,12 +53,15 @@ function mostrarDetalle() {
     tabla.innerHTML = ``;
 
     operaciones.forEach(operacion => {
+
         let flecha;
+        //Arrows en tipo de operación
         if (operacion.tipo === "Ingreso") {
             flecha = '<i class="fa-solid fa-arrow-up"></i>'
         } else {
            flecha = '<i class="fa-solid fa-arrow-down"></i>'
         }
+
         tabla.innerHTML += `<li class="item">
                             <p class="flecha">${flecha}</p>
                             <p>${operacion.fecha}</p>
@@ -136,6 +139,7 @@ function saldoTotal() {
     } else {
         saldo.style.color='var(--negro)';
     }
+
     return (saldo.innerHTML = `Saldo $${parseFloat(resultado).toFixed(2)}`);
 }
 
