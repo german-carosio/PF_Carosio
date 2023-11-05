@@ -13,7 +13,8 @@
     --negro: #000;
     --rojo: #db0404;
     --violeta: #8b1ae8;
-  
+    --verde: rgb(43, 181, 43);
+    
     --fuente-normal: 1em;
     --fuente-chica: 0.8em;
     --fuente-grande: 1.2em;
@@ -72,8 +73,13 @@ button {
     display: none;
 }
 
-/*BODY*/
+.fa-arrow-down {
+    color: var(--rojo);
+}
 
+.fa-arrow-up {
+    color: var(--verde);
+}
 
 
 /*HEADER*/
@@ -83,6 +89,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
+    
 }
 
 .menu {
@@ -95,26 +103,30 @@ header {
 main {
     max-width: 1400px;
     margin: 20px auto;
-    border: solid 1px var(--azul-claro2);
     border-radius: 4px;
+   
+}
+
+.cabecera {
+    padding: 10px;
 }
 
 
 .cuerpo {
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
-    padding: 40px 0;
+    padding: 20px 0;
 }
 
-section {
+/* section {
     padding: 20px 20px;
-    margin: 5px 10px;
-}
+} */
 
 /*INGRESOS - EGRESOS*/
 
 .cargar-operacion {
-    width: 40%;
+    width: 100%;
 }
 
 .form-operacion {
@@ -122,6 +134,7 @@ section {
     flex-direction: column;
     gap: 20px;
     margin: 0 auto;
+    padding: 10px;
 }
 
 
@@ -132,8 +145,9 @@ section {
 
 /*Detalle*/
 .detalle {
-    padding: 20px;
-    width: 60%;
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
 }
 
 .detalle h3 {
@@ -152,18 +166,42 @@ section {
     border-bottom: solid 1px var(--gris);
     padding: 8px 15px;
     margin-bottom: 10px;
-    font-size: var(--fuente-normal);
+    font-size: var(--fuente-chica);
 }
 
 .detalle-titulos p, .item p {
-    width: 30%;
+    width: 100%;
     text-align: center;
 }
+
+.flecha, .trash {
+    max-width: 20px;
+}
+
+.trash {
+    color: var(--azul);
+    cursor: pointer;
+}
+
 
 .detalle .eliminar-todo {
     text-align: right;
 }
 
 @media (min-width: 768px){
-    
+    .cuerpo {
+       flex-direction: row;
+    }
+
+    .cargar-operacion {
+        width: 60%;
+    }
+
+    .detalle {
+        width: 100%;
+    }
+
+    .detalle-titulos, .item {
+        font-size: var(--fuente-normal);
+    }
 }

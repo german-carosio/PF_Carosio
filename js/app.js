@@ -53,11 +53,18 @@ function mostrarDetalle() {
     tabla.innerHTML = ``;
 
     operaciones.forEach(operacion => {
+        let flecha;
+        if (operacion.tipo === "Ingreso") {
+            flecha = '<i class="fa-solid fa-arrow-up"></i>'
+        } else {
+           flecha = '<i class="fa-solid fa-arrow-down"></i>'
+        }
         tabla.innerHTML += `<li class="item">
+                            <p class="flecha">${flecha}</p>
                             <p>${operacion.fecha}</p>
-                            <p>${operacion.tipo}</p>
                             <p>${operacion.detalle}</p>
                             <p>$${operacion.monto}</p>
+                            <p class="trash"> <i class="fa-solid fa-trash"></i></p>
                             </li>
                             `
     })
