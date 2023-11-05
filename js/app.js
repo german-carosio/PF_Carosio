@@ -7,6 +7,7 @@ const monto = document.getElementById('monto');
 const saldo = document.getElementById('saldo');
 const deleteAll = document.getElementById('deleteAll');
 const msj = document.getElementById('msj');
+const btnForm = document.getElementById('btn-form');
 
 class Operacion {
     constructor(fecha, tipo, detalle, monto) {
@@ -86,7 +87,6 @@ function cargarOperacion() {
     } else {
 
         msj.style.display = 'none';
-
         let objOperacion = new Operacion();
 
         //agrego valores a los atributos
