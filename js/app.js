@@ -3,6 +3,7 @@ const formOperacion = document.getElementById('form-operacion');
 const tabla = document.getElementById('tabla');
 const tipo = document.getElementById('tipo');
 const detalle = document.getElementById('detalle');
+const categoria = document.getElementById('categoria');
 const monto = document.getElementById('monto');
 const saldo = document.getElementById('saldo');
 const deleteAll = document.getElementById('deleteAll');
@@ -10,11 +11,12 @@ const msj = document.getElementById('msj');
 const btnForm = document.getElementById('btn-form');
 
 class Operacion {
-    constructor(fecha, tipo, detalle, monto) {
+    constructor(fecha, tipo, detalle, categoria, monto) {
         //declaro atributos
         this.fecha = fecha;
         this.tipo = tipo;
         this.detalle = detalle;
+        this.categoria = categoria;
         this.monto = monto;
     }
 }
@@ -67,6 +69,7 @@ function mostrarDetalle() {
                             <p class="flecha">${flecha}</p>
                             <p>${operacion.fecha}</p>
                             <p>${operacion.detalle}</p>
+                            <p>${operacion.categoria}</p>
                             <p>$${operacion.monto}</p>
                             <p class="trash"> <i class="fa-solid fa-trash"></i></p>
                             </li>
@@ -79,7 +82,7 @@ function mostrarDetalle() {
 function cargarOperacion() {
 
     //validando que los campos no esten vacíos
-    if (tipo.value == "" || detalle.value == "" || monto.value == "") {
+    if (tipo.value == "" || detalle.value == "" || monto.value == "" || categoria.value == "") {
 
         msj.style.display = 'block';
         msj.innerText = 'Debe completar todos los campos';
@@ -93,6 +96,7 @@ function cargarOperacion() {
         objOperacion.fecha = fecha();
         objOperacion.tipo = tipo.value;
         objOperacion.detalle = detalle.value;
+        objOperacion.categoria = categoria.value;
         objOperacion.monto = parseFloat(monto.value).toFixed(2);
 
         operaciones.unshift({ ...objOperacion });
