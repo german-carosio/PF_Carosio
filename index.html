@@ -43,6 +43,7 @@
                         <option value="Ingreso">Ingreso</option>
                         <option value="Gasto">Gasto</option>
                     </select>
+                    <input type="date" id="fecha">
                     <input type="text" id="detalle" placeholder="Detalle">
                     <input type="number" id="monto" step="0.01" placeholder="Monto">
                     <button type="submit" id="btn-form" class="btn-form"><i class="fa-solid fa-plus"></i> Agregar operacion</button>
@@ -55,11 +56,8 @@
                 <h3>Detalle de operaciones</h3>
                 
                 <div class="busqueda">
-                    <form action="">
-                        <input type="search" placeholder="Buscar operación">
-                        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </form>
-                    
+                        <input type="text" placeholder="Buscar operación" id="input-buscar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
 
                 <div class="detalle-titulos">

@@ -4,13 +4,13 @@
 const formOperacion = document.getElementById('form-operacion');
 const tabla = document.getElementById('tabla');
 const tipo = document.getElementById('tipo');
+const fecha = document.getElementById('fecha');
 const detalle = document.getElementById('detalle');
 const monto = document.getElementById('monto');
 const saldo = document.getElementById('saldo');
 const deleteAll = document.getElementById('deleteAll');
 const msj = document.getElementById('msj');
 const btnForm = document.getElementById('btn-form');
-
 
 class Operacion {
     constructor(id, fecha, tipo, detalle, monto) {
@@ -35,29 +35,19 @@ recibirLocalStorage === null ? operaciones = [] : operaciones = recibirLocalStor
 saldoTotal();
 
 //Mostrando el detalle de operaciones del localStorage
-mostrarDetalle()
+mostrarDetalle(operaciones)
 
 /*---FUNCIONES---*/
 
-//función para devolver fecha editada (averiguar el tema de la hora)
-function fecha() {
-
-    let day = new Date().getDate();
-    let month = new Date().getMonth();
-    let year = new Date().getFullYear();
-
-    return day + "/" + month + "/" + year;
-}
-
 //función que recarga la tabla con todas las operacion
-function mostrarDetalle() {
+function mostrarDetalle(elementos) {
 
     tabla.innerHTML = '';
 
-    operaciones.forEach(operacion => {
+    elementos.forEach(elemento => {
 
         //desestructuración
-        const {id, tipo, fecha, detalle, monto} = operacion;
+        const {id, tipo, fecha, detalle, monto} = elemento;
 
         let flecha;
         //Arrows en tipo de operación (up ingreso - down gasto)
@@ -99,7 +89,7 @@ function cargarOperacion() {
 
         //agrego valores a los atributos
         objOperacion.id = Date.now();
-        objOperacion.fecha = fecha();
+        objOperacion.fecha = fecha.value;
         objOperacion.tipo = tipo.value;
         objOperacion.detalle = detalle.value;
         objOperacion.monto = parseFloat(monto.value).toFixed(2);
@@ -115,7 +105,7 @@ function cargarOperacion() {
         console.log(operaciones);
 
         //Muestro detalle
-        mostrarDetalle();
+        mostrarDetalle(operaciones);
         //Muestro Saldo total
         saldoTotal();
     }
@@ -139,7 +129,7 @@ function eliminarOperacion(id) {
         localStorage.setItem('operaciones', operacionesJson);
 
         //Muestro detalle
-        mostrarDetalle();
+        mostrarDetalle(operaciones);
         //Muestro Saldo total
         saldoTotal();
     }
@@ -175,15 +165,37 @@ function saldoTotal() {
     return (saldo.innerHTML = `Saldo $${parseFloat(resultado).toFixed(2)}`);
 }
 
+//Función de busqueda de operaciones
+function buscarOperacion() {
+    
+    const inputBuscar = document.getElementById('input-buscar');
+
+    inputBuscar.addEventListener('keyup', ()=>{
+
+        const value = inputBuscar.value;
+
+        const operacionesFiltradas = operaciones.filter((operacion)=>{
+
+            return operacion.detalle.toLowerCase().includes(value.toLowerCase())
+        });
+
+        mostrarDetalle(operacionesFiltradas);
+    });
+}
+
+buscarOperacion();
+
 /*---EVENTOS---*/
 
 formOperacion.addEventListener('submit', (e) => {
+    
     //detengo funcionalidad por defecto
     e.preventDefault();
 
     cargarOperacion();
 
 });
+
 
 //Borro localStorage, reseteo operaciones, y refresco pagina
 deleteAll.addEventListener('click', () => {
@@ -196,3 +208,4 @@ deleteAll.addEventListener('click', () => {
     }
 
 })
+

@@ -176,18 +176,17 @@ main {
 
 .detalle .busqueda {
     margin: 0 0 20px 0;
-}
-
-.detalle .busqueda form {
     border: solid 1px var(--gris);
     width: 100%;
     max-width: 400px;
     border-radius: 4px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
+    padding: 0 10px;
 }
 
-.detalle .busqueda form input {
+.detalle .busqueda input {
     border: none;
     width: 100%;
 }
