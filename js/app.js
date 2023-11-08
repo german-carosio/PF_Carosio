@@ -168,7 +168,9 @@ function saldoTotal() {
     //Colores segun el saldo es positivo o negativo
     if (resultado < 0) {
         saldo.style.color='var(--rojo)';
-    } 
+    } else {
+        saldo.style.color='var(--negro)';
+    }
 
     return (saldo.innerHTML = `Saldo $${parseFloat(resultado).toFixed(2)}`);
 }
