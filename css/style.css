@@ -29,6 +29,7 @@
 }
 
 
+
 li {
     list-style: none;
 }
@@ -96,6 +97,7 @@ button {
 .fa-arrow-up {
     color: var(--verde);
 }
+
 
 
 /*HEADER*/
@@ -175,6 +177,10 @@ main {
     margin-bottom: 20px;
 }
 
+.detalle .busqueda {
+    margin: 0 0 20px 0;
+}
+
 .detalle-titulos {
     background-color: var(--gris-claro);
     font-weight: bolder;
@@ -217,6 +223,7 @@ main {
 
     .cuerpo {
        flex-direction: row;
+       gap: 40px;
     }
 
     .cargar-operacion {
@@ -231,4 +238,9 @@ main {
     .detalle-titulos, .item {
         font-size: var(--fuente-normal);
     }
+
+}
+
+.radio {
+    border: solid 2px red;
 }
