@@ -1,3 +1,5 @@
+//https://www.youtube.com/watch?v=Muz_tBzcz8E
+
 /*---VARIABLES---*/
 const formOperacion = document.getElementById('form-operacion');
 const tabla = document.getElementById('tabla');
@@ -8,6 +10,7 @@ const saldo = document.getElementById('saldo');
 const deleteAll = document.getElementById('deleteAll');
 const msj = document.getElementById('msj');
 const btnForm = document.getElementById('btn-form');
+
 
 class Operacion {
     constructor(id, fecha, tipo, detalle, monto) {
@@ -49,12 +52,12 @@ function fecha() {
 //función que recarga la tabla con todas las operacion
 function mostrarDetalle() {
 
-    tabla.innerHTML = ``;
+    tabla.innerHTML = '';
 
     operaciones.forEach(operacion => {
 
         //desestructuración
-        const {tipo, fecha, detalle, monto} = operacion;
+        const {id, tipo, fecha, detalle, monto} = operacion;
 
         let flecha;
         //Arrows en tipo de operación (up ingreso - down gasto)
@@ -64,14 +67,18 @@ function mostrarDetalle() {
            flecha = '<i class="fa-solid fa-arrow-down"></i>'
         }
 
-        tabla.innerHTML += `<li class="item">
-                            <p class="flecha">${flecha}</p>
-                            <p>${fecha}</p>
-                            <p>${detalle}</p>
-                            <p>$${monto}</p>
-                            <p class="trash"> <i class="fa-solid fa-trash"></i></p>
-                            </li>
-                            `
+        const li = document.createElement('li');
+        li.classList.add('item');
+
+        const datos = `<p class="flecha">${flecha}</p>
+                        <p>${fecha}</p>
+                        <p>${detalle}</p>
+                        <p>$${monto}</p>
+                        <p class="trash" id="btn-eliminar" onclick='eliminarOperacion(${id})'> <i class="fa-solid fa-trash"></i></p>`
+
+        li.innerHTML = datos;
+
+        tabla.appendChild(li);
     })
 
 }
@@ -115,9 +122,31 @@ function cargarOperacion() {
 
 }
 
+//funcion eliminar operacion
+function eliminarOperacion(id) {
+
+    const index = operaciones.findIndex((item)=>{
+        return item.id == id;
+    })
+    console.log(operaciones[index]);
+
+    if (confirm('Desea eliminar esta operación?')) {
+        operaciones.splice(index,1);
+        
+
+        //elimino la operacion en localStorage
+        let operacionesJson = JSON.stringify(operaciones);
+        localStorage.setItem('operaciones', operacionesJson);
+
+        mostrarDetalle();
+    }
+
+}
+
 //Función Saldo total
 function saldoTotal() {
-
+    
+    //inicio resultado en cero
     let resultado = 0;
 
     //Si no hay datos en el array el saldo es cero
@@ -166,5 +195,3 @@ deleteAll.addEventListener('click', () => {
     }
 
 })
-
-
