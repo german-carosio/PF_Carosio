@@ -46,6 +46,7 @@ input, select {
     border: solid 1px var(--gris);
     border-radius: 4px;
     font-size: var(--fuente-normal);
+    outline: none;
 }
 
 button {
@@ -181,6 +182,20 @@ main {
     margin: 0 0 20px 0;
 }
 
+.detalle .busqueda form {
+    border: solid 1px var(--gris);
+    width: 100%;
+    max-width: 400px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.detalle .busqueda form input {
+    border: none;
+    width: 100%;
+}
+
 .detalle-titulos {
     background-color: var(--gris-claro);
     font-weight: bolder;
@@ -208,6 +223,15 @@ main {
 .trash {
     color: var(--azul);
     cursor: pointer;
+}
+
+.trash i {
+    font-size: var(--fuente-grande);
+}
+
+.trash:hover {
+    color: var(--azul-oscuro);
+    transition: all 0.2s;
 }
 
 

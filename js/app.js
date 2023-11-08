@@ -130,7 +130,7 @@ function eliminarOperacion(id) {
     })
     console.log(operaciones[index]);
 
-    if (confirm('Desea eliminar esta operación?')) {
+    if (confirm('¿Desea eliminar esta operación?')) {
         operaciones.splice(index,1);
         
 
@@ -138,7 +138,10 @@ function eliminarOperacion(id) {
         let operacionesJson = JSON.stringify(operaciones);
         localStorage.setItem('operaciones', operacionesJson);
 
+        //Muestro detalle
         mostrarDetalle();
+        //Muestro Saldo total
+        saldoTotal();
     }
 
 }
@@ -165,11 +168,7 @@ function saldoTotal() {
     //Colores segun el saldo es positivo o negativo
     if (resultado < 0) {
         saldo.style.color='var(--rojo)';
-    } else if (resultado > 0) {
-        saldo.style.color='var(--verde)';
-    } else {
-        saldo.style.color='var(--negro)';
-    }
+    } 
 
     return (saldo.innerHTML = `Saldo $${parseFloat(resultado).toFixed(2)}`);
 }
