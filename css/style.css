@@ -40,11 +40,11 @@ a {
 
 input, select {
     padding: 6px;
-    border: none;
+    /* border: none;
     border: solid 1px var(--gris);
     border-radius: 4px;
     font-size: var(--fuente-normal);
-    outline: none;
+    outline: none; */
 }
 
 button {
