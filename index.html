@@ -45,7 +45,7 @@
                     </select>
                     <input type="date" id="fecha" name="fecha" placeholder="Fecha">
                     <input type="text" id="detalle" placeholder="Detalle">
-                    <input type="number" id="monto" step="0.01" placeholder="Monto">
+                    <input type="number" id="monto" step="0.01" min="0.01"  pattern="^[0-9]+" placeholder="Monto">
                     <button type="submit" id="btn-form" class="btn-form"><i class="fa-solid fa-plus"></i> Agregar operacion</button>
 
                 </form>
