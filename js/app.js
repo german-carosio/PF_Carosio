@@ -40,7 +40,7 @@ mostrarDetalle(operaciones);
 //buscador
 buscarOperacion();
 
-fechaActual();
+fechaInput();
 
 /*---FUNCIONES---*/
 
@@ -62,13 +62,14 @@ function mostrarDetalle(elementos) {
            flecha = '<i class="fa-solid fa-arrow-down"></i>'
         }
 
+
         const li = document.createElement('li');
         li.classList.add('item');
 
         const datos = `<p class="flecha">${flecha}</p>
                         <p>${fecha}</p>
                         <p>${detalle}</p>
-                        <p>$${monto}</p>
+                        <p>$${mostrarMoneda(monto)}</p>
                         <p class="trash" id="btn-eliminar" onclick='eliminarOperacion(${id})'> <i class="fa-solid fa-trash"></i></p>`
 
         li.innerHTML = datos;
@@ -107,7 +108,7 @@ function cargarOperacion() {
 
         //reseteo formulario
         formOperacion.reset();
-        fechaActual();
+        fechaInput();
         console.log(operaciones);
 
         //Muestro detalle
@@ -148,9 +149,6 @@ function saldoTotal() {
     //inicio resultado en cero
     let resultado = 0;
 
-    //Si no hay datos en el array el saldo es cero
-    operaciones.length === 0 && (saldo.innerHTML = `Saldo $0.00`);
-
     //Hago un ciclo y verifico que tipo de operacion es y en base a eso sumo o resto
     operaciones.forEach(operacion => {
 
@@ -168,7 +166,7 @@ function saldoTotal() {
         saldo.style.color='var(--negro)';
     }
 
-    return (saldo.innerHTML = `Saldo $${parseFloat(resultado).toFixed(2)}`);
+    return (saldo.innerHTML = `$${mostrarMoneda(resultado)}`);
 }
 
 //Función de busqueda de operaciones
@@ -190,7 +188,7 @@ function buscarOperacion() {
 }
 
 //Función par input date
-function fechaActual() {
+function fechaInput() {
     var fecha = new Date(); //Fecha actual
     var mes = fecha.getMonth()+1; //obteniendo mes
     var dia = fecha.getDate(); //obteniendo dia
@@ -202,7 +200,11 @@ function fechaActual() {
     document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
   }
 
-
+  function mostrarMoneda(numero) {
+    const numeroConDecimales = Number(numero).toFixed(2);
+    const numeroFormateado = numeroConDecimales.replace(/\./g, 'temp').replace(/\B(?=(\d{3})+(?!\d))/g, '.').replace('temp', ',');
+    return numeroFormateado;
+ }
 
 /*---EVENTOS---*/
 
