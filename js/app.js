@@ -38,7 +38,7 @@ mostrarDetalle(operaciones);
 //buscador
 buscarOperacion();
 
-fechaInput();
+//fechaInput();
 
 /*---FUNCIONES---*/
 
@@ -81,7 +81,7 @@ function mostrarDetalle(elementos) {
 function cargarOperacion() {
 
     //validando que los campos no esten vacíos
-    if (tipo.value == "" || detalle.value == "" || monto.value == "" ) {
+    if (tipo.value == "" || detalle.value == "" || monto.value == "" || fecha.value == "" ) {
 
         msj.style.display = 'block';
         msj.innerText = 'Debe completar todos los campos';
@@ -106,7 +106,7 @@ function cargarOperacion() {
 
         //reseteo formulario
         formOperacion.reset();
-        fechaInput();
+        //fechaInput();
         console.log(operaciones);
 
         //Muestro detalle
@@ -185,8 +185,8 @@ function buscarOperacion() {
     });
 }
 
-//Función par input date
-function fechaInput() {
+//Función par input date ---->>> a chequear 
+/* function fechaInput() {
     var fecha = new Date(); //Fecha actual
     var mes = fecha.getMonth()+1; //obteniendo mes
     var dia = fecha.getDate(); //obteniendo dia
@@ -196,7 +196,7 @@ function fechaInput() {
     if(mes<10)
       mes='0'+mes //agrega cero si el menor de 10
     document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
-  }
+  } */
 
   function mostrarMoneda(numero) {
     const numeroConDecimales = Number(numero).toFixed(2);
