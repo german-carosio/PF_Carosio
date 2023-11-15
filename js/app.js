@@ -280,6 +280,7 @@ deleteAll.addEventListener('click', () => {
 
             localStorage.clear();
             operaciones = [];
+            mostrarDetalle(operaciones);
             location.reload();
             
           });
