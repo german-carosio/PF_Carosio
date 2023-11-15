@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+
 :root {
     --azul: #1A73E8;
     --azul-claro: #669DF6;
@@ -96,6 +97,11 @@ button {
 
 .fa-arrow-up {
     color: var(--verde);
+}
+
+/*Eliminar borderdes de boton sweetAlert*/
+.swal2-popup .swal2-styled:focus {
+    box-shadow: none !important;
 }
 
 /*HEADER*/
