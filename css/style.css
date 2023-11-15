@@ -219,10 +219,15 @@ main {
 .trash {
     color: var(--azul);
     cursor: pointer;
+    transition: all 0.2s;
 }
 
 .trash i {
     font-size: var(--fuente-grande);
+}
+
+.trash:hover {
+    transform: scale(1.15);
 }
 
 .trash:hover {

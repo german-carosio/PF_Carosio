@@ -104,8 +104,7 @@ function cargarOperacion() {
         let operacionesJson = JSON.stringify(operaciones);
         localStorage.setItem('operaciones', operacionesJson);
 
-        //reseteo formulario
-        formOperacion.reset();
+        
         //fechaInput();
         console.log(operaciones);
 
@@ -113,6 +112,25 @@ function cargarOperacion() {
         mostrarDetalle(operaciones);
         //Muestro Saldo total
         saldoTotal();
+
+        //Mensajito
+        Toastify({
+            text: `Se agregó ${detalle.value}`,
+            duration: 3000,
+            /* destination: "https://github.com/apvarun/toastify-js", 
+            newWindow: true,*/
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background: "#1A73E8",
+            },
+            onClick: function(){} // Callback after click
+          }).showToast();
+
+          //reseteo formulario
+            formOperacion.reset();
     }
 
 }
@@ -125,10 +143,28 @@ function eliminarOperacion(id) {
     })
     console.log(operaciones[index]);
 
-    if (confirm('¿Desea eliminar esta operación?')) {
-        operaciones.splice(index,1);
-        
 
+    Swal.fire({
+        title: "Desea eliminar esta operación?",
+        text: "La operación será eliminada definitivamente",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#1A73E8",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "Cancelar"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          
+            Swal.fire({
+            title: "Eliminado!",
+            text: "La operación ya no se encuentra en la base",
+            confirmButtonColor: "#1A73E8",
+            icon: "success"
+          }).then(()=>{
+
+            operaciones.splice(index,1);
+        
         //elimino la operacion en localStorage
         let operacionesJson = JSON.stringify(operaciones);
         localStorage.setItem('operaciones', operacionesJson);
@@ -137,7 +173,11 @@ function eliminarOperacion(id) {
         mostrarDetalle(operaciones);
         //Muestro Saldo total
         saldoTotal();
-    }
+            
+          });
+
+        }
+      });
 
 }
 
@@ -219,12 +259,33 @@ formOperacion.addEventListener('submit', (e) => {
 //Borro localStorage, reseteo operaciones, y refresco pagina
 deleteAll.addEventListener('click', () => {
 
-    //Mensaje de si esta seguro de querer borrar todo
-    if (confirm('Se borrara toda la información guardada definitivamente')) {
-        localStorage.clear();
-        operaciones = [];
-        location.reload();
-    }
+    Swal.fire({
+        title: "Esta seguro de eliminar todo?",
+        text: "Se eliminará toda la base definitivamente",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#1A73E8",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, eliminar todo!",
+        cancelButtonText: "Cancelar"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          
+            Swal.fire({
+            title: "Eliminado!",
+            text: "Toda su base ha sido eliminada",
+            confirmButtonColor: "#1A73E8",
+            icon: "success"
+          }).then(()=>{
 
-})
+            localStorage.clear();
+            operaciones = [];
+            location.reload();
+            
+          });
+
+        }
+      });
+
+});
 
