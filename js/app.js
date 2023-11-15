@@ -1,5 +1,3 @@
-//https://www.youtube.com/watch?v=Muz_tBzcz8E
-
 /*---VARIABLES---*/
 const formOperacion = document.getElementById('form-operacion');
 const tabla = document.getElementById('tabla');
