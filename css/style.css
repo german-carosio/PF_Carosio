@@ -133,7 +133,6 @@ main {
     padding: 20px;
     border: solid 1px var(--gris);
     border-radius: 4px;
-    width: max-content;
     margin: 0 auto;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }

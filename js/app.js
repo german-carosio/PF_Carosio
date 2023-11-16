@@ -10,47 +10,17 @@ const deleteAll = document.getElementById('deleteAll');
 const msj = document.getElementById('msj');
 const btnForm = document.getElementById('btn-form');
 
-class Operacion {
-    constructor(id, fecha, tipo, detalle, monto) {
-        //declaro atributos
-        this.id = id;
-        this.fecha = fecha;
-        this.tipo = tipo;
-        this.detalle = detalle;
-        this.monto = monto;
-    }
-}
-
-const recibirLocalStorage = JSON.parse(localStorage.getItem('operaciones'));
-
-let operaciones;
-
-//Si recibirLocalStorage es null -> operaciones esta vacío, sino es la info que tenga
-recibirLocalStorage === null ? operaciones = [] : operaciones = recibirLocalStorage;
-
-
-//Mostrando saldo inicial
-saldoTotal();
-
-//Mostrando el detalle de operaciones del localStorage
-mostrarDetalle(operaciones);
-
-//buscador
-buscarOperacion();
-
-//fechaInput();
-
 /*---FUNCIONES---*/
 
 //función que recarga la tabla con todas las operacion
-function mostrarDetalle(elementos) {
+function mostrarDetalle(operaciones) {
 
     tabla.innerHTML = '';
 
-    elementos.forEach(elemento => {
+    operaciones.forEach(operacion => {
 
         //desestructuración
-        const {id, tipo, fecha, detalle, monto} = elemento;
+        const {id, tipo, fecha, detalle, monto} = operacion;
 
         let flecha;
         //Arrows en tipo de operación (up ingreso - down gasto)
@@ -124,7 +94,7 @@ function cargarOperacion() {
             position: "right", // `left`, `center` or `right`
             stopOnFocus: true, // Prevents dismissing of toast on hover
             style: {
-              background: "#1A73E8",
+              background: "rgb(33, 132, 33)",
             },
             onClick: function(){} // Callback after click
           }).showToast();
@@ -141,23 +111,24 @@ function eliminarOperacion(id) {
     const index = operaciones.findIndex((item)=>{
         return item.id == id;
     })
-    console.log(operaciones[index]);
+    //console.log(operaciones[index]);
 
+    const operacion = operaciones[index];
 
     Swal.fire({
-        title: "Desea eliminar esta operación?",
+        title: `¿Desea eliminar ${operacion.detalle}?`,
         text: "La operación será eliminada definitivamente",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#1A73E8",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Si, eliminar!",
+        confirmButtonText: "Si, eliminar",
         cancelButtonText: "Cancelar"
       }).then((result) => {
         if (result.isConfirmed) {
           
             Swal.fire({
-            title: "Eliminado!",
+            title: "¡Eliminado!",
             text: "La operación ya no se encuentra en la base",
             confirmButtonColor: "#1A73E8",
             icon: "success"
@@ -260,13 +231,13 @@ formOperacion.addEventListener('submit', (e) => {
 deleteAll.addEventListener('click', () => {
 
     Swal.fire({
-        title: "Esta seguro de eliminar todo?",
+        title: "¿Desea eliminar todo?",
         text: "Se eliminará toda la base definitivamente",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#1A73E8",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Si, eliminar todo!",
+        confirmButtonText: "Si, eliminar todo",
         cancelButtonText: "Cancelar"
       }).then((result) => {
         if (result.isConfirmed) {
@@ -281,8 +252,7 @@ deleteAll.addEventListener('click', () => {
             localStorage.clear();
             operaciones = [];
             mostrarDetalle(operaciones);
-            location.reload();
-            
+            saldoTotal();
           });
 
         }
@@ -290,3 +260,35 @@ deleteAll.addEventListener('click', () => {
 
 });
 
+
+/*---INICIO DE PROGRAMA---*/
+
+class Operacion {
+  constructor(id, fecha, tipo, detalle, monto) {
+      //declaro atributos
+      this.id = id;
+      this.fecha = fecha;
+      this.tipo = tipo;
+      this.detalle = detalle;
+      this.monto = monto;
+  }
+}
+
+const recibirLocalStorage = JSON.parse(localStorage.getItem('operaciones'));
+
+let operaciones;
+
+//Si recibirLocalStorage es null -> operaciones esta vacío, sino es la info que tenga
+recibirLocalStorage === null ? operaciones = [] : operaciones = recibirLocalStorage;
+
+
+//Mostrando saldo inicial
+saldoTotal();
+
+//Mostrando el detalle de operaciones del localStorage
+mostrarDetalle(operaciones);
+
+//buscador
+buscarOperacion();
+
+//fechaInput();
