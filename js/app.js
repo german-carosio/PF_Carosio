@@ -76,7 +76,7 @@ function cargarOperacion() {
 
         
         //fechaInput();
-        console.log(operaciones);
+        //console.log(operaciones);
 
         //Muestro detalle
         mostrarDetalle(operaciones);
@@ -109,7 +109,7 @@ function cargarOperacion() {
 function eliminarOperacion(id) {
 
     const index = operaciones.findIndex((item)=>{
-        return item.id == id;
+        return item.id === id;
     })
     //console.log(operaciones[index]);
 
