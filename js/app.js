@@ -243,7 +243,7 @@ deleteAll.addEventListener('click', () => {
         if (result.isConfirmed) {
           
             Swal.fire({
-            title: "Eliminado!",
+            title: "¡Eliminado!",
             text: "Toda su base ha sido eliminada",
             confirmButtonColor: "#1A73E8",
             icon: "success"
