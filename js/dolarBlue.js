@@ -1,3 +1,5 @@
+//consumo de api de otra app propia para dolarizar el saldo
+
 const verdes = async()=> {
     //try
     try {
