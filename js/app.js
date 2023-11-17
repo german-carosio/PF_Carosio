@@ -15,127 +15,135 @@ const btnForm = document.getElementById('btn-form');
 //función que recarga la tabla con todas las operacion
 function mostrarDetalle(operaciones) {
 
-    tabla.innerHTML = '';
+  tabla.innerHTML = '';
 
-    operaciones.forEach(operacion => {
+  operaciones.forEach(operacion => {
 
-        //desestructuración
-        const {id, tipo, fecha, detalle, monto} = operacion;
+    //desestructuración
+    const { id, tipo, fecha, detalle, monto } = operacion;
 
-        let flecha;
-        //Arrows en tipo de operación (up ingreso - down gasto)
-        if (tipo === "Ingreso") {
-            flecha = '<i class="fa-solid fa-arrow-up"></i>'
-        } else {
-           flecha = '<i class="fa-solid fa-arrow-down"></i>'
-        }
+    let flecha;
+    //Arrows en tipo de operación (up ingreso - down gasto)
+    if (tipo === "Ingreso") {
+      flecha = '<i class="fa-solid fa-arrow-up"></i>'
+    } else {
+      flecha = '<i class="fa-solid fa-arrow-down"></i>'
+    }
 
 
-        const li = document.createElement('li');
-        li.classList.add('item');
+    const li = document.createElement('li');
+    li.classList.add('item');
 
-        const datos = `<p class="flecha">${flecha}</p>
+    const datos = `<p class="flecha">${flecha}</p>
                         <p>${fecha}</p>
                         <p>${detalle}</p>
                         <p>$${mostrarMoneda(monto)}</p>
                         <p class="trash" id="btn-eliminar" onclick='eliminarOperacion(${id})'> <i class="fa-solid fa-trash"></i></p>`
 
-        li.innerHTML = datos;
+    li.innerHTML = datos;
 
-        tabla.appendChild(li);
-    })
+    tabla.appendChild(li);
+  })
 
 }
 
 //función cargar operacion
 function cargarOperacion() {
 
-    //validando que los campos no esten vacíos
-    if (tipo.value == "" || detalle.value == "" || monto.value == "" || fecha.value == "" ) {
+  //validando que los campos no esten vacíos
+  if (tipo.value == "" || detalle.value == "" || monto.value == "" || fecha.value == "") {
 
-        msj.style.display = 'block';
-        msj.innerText = 'Debe completar todos los campos';
+    msj.style.display = 'block';
+    msj.innerText = 'Debe completar todos los campos';
 
-    } else {
+  } else {
 
-        msj.style.display = 'none';
-        let objOperacion = new Operacion();
+    msj.style.display = 'none';
+    let objOperacion = new Operacion();
 
-        //agrego valores a los atributos
-        objOperacion.id = Date.now();
-        objOperacion.fecha = fecha.value;
-        objOperacion.tipo = tipo.value;
-        objOperacion.detalle = detalle.value;
-        objOperacion.monto = parseFloat(monto.value).toFixed(2);
+    //agrego valores a los atributos
+    objOperacion.id = Date.now();
+    objOperacion.fecha = fecha.value;
+    objOperacion.tipo = tipo.value;
+    objOperacion.detalle = detalle.value;
+    objOperacion.monto = parseFloat(monto.value).toFixed(2);
 
-        operaciones.unshift({ ...objOperacion });
+    operaciones.unshift({ ...objOperacion });
 
-        //envio la operacion a localStorage
-        let operacionesJson = JSON.stringify(operaciones);
-        localStorage.setItem('operaciones', operacionesJson);
+    //envio la operacion a localStorage
+    let operacionesJson = JSON.stringify(operaciones);
+    localStorage.setItem('operaciones', operacionesJson);
 
-        
-        //fechaInput();
-        //console.log(operaciones);
 
-        //Muestro detalle
-        mostrarDetalle(operaciones);
-        //Muestro Saldo total
-        saldoTotal();
+    //fechaInput();
+    //console.log(operaciones);
 
-        //Mensajito
-        Toastify({
-            text: `Se agregó ${detalle.value}`,
-            duration: 3000,
-            /* destination: "https://github.com/apvarun/toastify-js", 
-            newWindow: true,*/
-            close: true,
-            gravity: "top", // `top` or `bottom`
-            position: "right", // `left`, `center` or `right`
-            stopOnFocus: true, // Prevents dismissing of toast on hover
-            style: {
-              background: "rgb(33, 132, 33)",
-            },
-            onClick: function(){} // Callback after click
-          }).showToast();
+    //Muestro detalle
+    mostrarDetalle(operaciones);
+    //Muestro Saldo total
+    mostrarTotal(saldoTotal());
 
-          //reseteo formulario
-            formOperacion.reset();
-    }
+    //Mensajito
+    Toastify({
+      text: `Se agregó ${detalle.value}`,
+      duration: 3000,
+      /* destination: "https://github.com/apvarun/toastify-js", 
+      newWindow: true,*/
+      close: true,
+      gravity: "top", // `top` or `bottom`
+      position: "right", // `left`, `center` or `right`
+      stopOnFocus: true, // Prevents dismissing of toast on hover
+      style: {
+        background: "rgb(33, 132, 33)",
+      },
+      onClick: function () { } // Callback after click
+    }).showToast();
+
+    //reseteo formulario
+    formOperacion.reset();
+  }
 
 }
 
 //funcion eliminar operacion
 function eliminarOperacion(id) {
 
-    const index = operaciones.findIndex((item)=>{
-        return item.id === id;
-    })
-    //console.log(operaciones[index]);
+  const index = operaciones.findIndex((item) => {
+    return item.id === id;
+  })
+  //console.log(operaciones[index]);
 
-    const operacion = operaciones[index];
+  const operacion = operaciones[index];
 
-    Swal.fire({
-        title: `¿Desea eliminar ${operacion.detalle}?`,
-        text: "La operación será eliminada definitivamente",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#1A73E8",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Si, eliminar",
-        cancelButtonText: "Cancelar"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          
-            Swal.fire({
-            title: "¡Eliminado!",
-            text: "La operación ya no se encuentra en la base",
-            confirmButtonColor: "#1A73E8",
-            icon: "success"
-          }).then(()=>{
+  Swal.fire({
+    title: `¿Desea eliminar ${operacion.detalle}?`,
+    text: "La operación será eliminada definitivamente",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#1A73E8",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Si, eliminar",
+    cancelButtonText: "Cancelar"
+  }).then((result) => {
+    if (result.isConfirmed) {
 
-            operaciones.splice(index,1);
-        
+      Toastify({
+        text: `Se eliminó ${operacion.detalle}`,
+        duration: 3000,
+        /* destination: "https://github.com/apvarun/toastify-js", 
+        newWindow: true,*/
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "rgb(33, 132, 33)",
+        },
+        onClick: function () { } // Callback after click
+      }).showToast();
+
+        operaciones.splice(index, 1);
+
         //elimino la operacion en localStorage
         let operacionesJson = JSON.stringify(operaciones);
         localStorage.setItem('operaciones', operacionesJson);
@@ -143,57 +151,63 @@ function eliminarOperacion(id) {
         //Muestro detalle
         mostrarDetalle(operaciones);
         //Muestro Saldo total
-        saldoTotal();
-            
-          });
+        mostrarTotal(saldoTotal());
 
-        }
-      });
+      
+
+    }
+  });
 
 }
 
 //Función Saldo total
 function saldoTotal() {
-    
-    //inicio resultado en cero
-    let resultado = 0;
 
-    //Hago un ciclo y verifico que tipo de operacion es y en base a eso sumo o resto
-    operaciones.forEach(operacion => {
+  //inicio resultado en cero
+  let resultado = 0;
 
-        const {tipo, monto} = operacion
+  //Hago un ciclo y verifico que tipo de operacion es y en base a eso sumo o resto
+  operaciones.forEach(operacion => {
 
-        //Si el tipo es ingreso sumo el monto operación al resultado, sino se lo resto
-        tipo === "Ingreso" ? resultado += parseFloat(monto) : resultado -= parseFloat(monto);
-        
-    })
+    const { tipo, monto } = operacion
 
-    //Colores segun el saldo es positivo o negativo
-    if (resultado < 0) {
-        saldo.style.color='var(--rojo)';
-    } else {
-        saldo.style.color='var(--negro)';
-    }
+    //Si el tipo es ingreso sumo el monto operación al resultado, sino se lo resto
+    tipo === "Ingreso" ? resultado += parseFloat(monto) : resultado -= parseFloat(monto);
 
-    return (saldo.innerHTML = `$${mostrarMoneda(resultado)}`);
+  })
+
+  //Colores segun el saldo es positivo o negativo
+  if (resultado < 0) {
+    saldo.style.color = 'var(--rojo)';
+  } else {
+    saldo.style.color = 'var(--negro)';
+  }
+
+  return resultado;
+}
+
+function mostrarTotal(total) {
+
+  return (saldo.innerHTML = `$${mostrarMoneda(total)}`);
+
 }
 
 //Función de busqueda de operaciones
 function buscarOperacion() {
-    
-    const inputBuscar = document.getElementById('input-buscar');
 
-    inputBuscar.addEventListener('keyup', ()=>{
+  const inputBuscar = document.getElementById('input-buscar');
 
-        const value = inputBuscar.value;
+  inputBuscar.addEventListener('keyup', () => {
 
-        const operacionesFiltradas = operaciones.filter((operacion)=>{
+    const value = inputBuscar.value;
 
-            return operacion.detalle.toLowerCase().includes(value.toLowerCase())
-        });
+    const operacionesFiltradas = operaciones.filter((operacion) => {
 
-        mostrarDetalle(operacionesFiltradas);
+      return operacion.detalle.toLowerCase().includes(value.toLowerCase())
     });
+
+    mostrarDetalle(operacionesFiltradas);
+  });
 }
 
 //Función par input date ---->>> a chequear 
@@ -209,20 +223,20 @@ function buscarOperacion() {
     document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
   } */
 
-  function mostrarMoneda(numero) {
-    const numeroConDecimales = Number(numero).toFixed(2);
-    const numeroFormateado = numeroConDecimales.replace(/\./g, 'temp').replace(/\B(?=(\d{3})+(?!\d))/g, '.').replace('temp', ',');
-    return numeroFormateado;
- }
+function mostrarMoneda(numero) {
+  const numeroConDecimales = Number(numero).toFixed(2);
+  const numeroFormateado = numeroConDecimales.replace(/\./g, 'temp').replace(/\B(?=(\d{3})+(?!\d))/g, '.').replace('temp', ',');
+  return numeroFormateado;
+}
 
 /*---EVENTOS---*/
 
 formOperacion.addEventListener('submit', (e) => {
-    
-    //detengo funcionalidad por defecto
-    e.preventDefault();
 
-    cargarOperacion();
+  //detengo funcionalidad por defecto
+  e.preventDefault();
+
+  cargarOperacion();
 
 });
 
@@ -230,33 +244,41 @@ formOperacion.addEventListener('submit', (e) => {
 //Borro localStorage, reseteo operaciones, y refresco pagina
 deleteAll.addEventListener('click', () => {
 
-    Swal.fire({
-        title: "¿Desea eliminar todo?",
-        text: "Se eliminará toda la base definitivamente",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#1A73E8",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Si, eliminar todo",
-        cancelButtonText: "Cancelar"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          
-            Swal.fire({
-            title: "¡Eliminado!",
-            text: "Toda su base ha sido eliminada",
-            confirmButtonColor: "#1A73E8",
-            icon: "success"
-          }).then(()=>{
+  Swal.fire({
+    title: "¿Desea eliminar todo?",
+    text: "Se eliminará toda la base definitivamente",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#1A73E8",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Si, eliminar todo",
+    cancelButtonText: "Cancelar"
+  }).then((result) => {
+    if (result.isConfirmed) {
 
-            localStorage.clear();
-            operaciones = [];
-            mostrarDetalle(operaciones);
-            saldoTotal();
-          });
+      Toastify({
+        text: `Se eliminó la base`,
+        duration: 3000,
+        /* destination: "https://github.com/apvarun/toastify-js", 
+        newWindow: true,*/
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "rgb(33, 132, 33)",
+        },
+        onClick: function () { } // Callback after click
+      }).showToast();
 
-        }
-      });
+        localStorage.clear();
+        operaciones = [];
+        mostrarDetalle(operaciones);
+        mostrarTotal(saldoTotal());
+      
+
+    }
+  });
 
 });
 
@@ -265,12 +287,12 @@ deleteAll.addEventListener('click', () => {
 
 class Operacion {
   constructor(id, fecha, tipo, detalle, monto) {
-      //declaro atributos
-      this.id = id;
-      this.fecha = fecha;
-      this.tipo = tipo;
-      this.detalle = detalle;
-      this.monto = monto;
+    //declaro atributos
+    this.id = id;
+    this.fecha = fecha;
+    this.tipo = tipo;
+    this.detalle = detalle;
+    this.monto = monto;
   }
 }
 
@@ -283,7 +305,7 @@ recibirLocalStorage === null ? operaciones = [] : operaciones = recibirLocalStor
 
 
 //Mostrando saldo inicial
-saldoTotal();
+mostrarTotal(saldoTotal());
 
 //Mostrando el detalle de operaciones del localStorage
 mostrarDetalle(operaciones);
