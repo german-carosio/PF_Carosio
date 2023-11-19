@@ -1,19 +1,19 @@
 /*---VARIABLES---*/
 const formOperacion = document.getElementById('form-operacion');
-const tabla = document.getElementById('tabla');
 const tipo = document.getElementById('tipo');
 const fecha = document.getElementById('fecha');
 const detalle = document.getElementById('detalle');
 const monto = document.getElementById('monto');
-const saldo = document.getElementById('saldo');
 const deleteAll = document.getElementById('deleteAll');
 const msj = document.getElementById('msj');
 const btnForm = document.getElementById('btn-form');
 
 /*---FUNCIONES---*/
 
-//función que recarga la tabla con todas las operacion
+//Función que recarga la tabla con todas las operacion
 function mostrarDetalle(operaciones) {
+
+  const tabla = document.getElementById('tabla');
 
   tabla.innerHTML = '';
 
@@ -45,9 +45,9 @@ function mostrarDetalle(operaciones) {
     tabla.appendChild(li);
   })
 
-}
+};
 
-//función cargar operacion
+//Función cargar operacion
 function cargarOperacion() {
 
   //validando que los campos no esten vacíos
@@ -103,9 +103,9 @@ function cargarOperacion() {
     formOperacion.reset();
   }
 
-}
+};
 
-//funcion eliminar operacion
+//Funcion eliminar operacion
 function eliminarOperacion(id) {
 
   const index = operaciones.findIndex((item) => {
@@ -158,7 +158,7 @@ function eliminarOperacion(id) {
     }
   });
 
-}
+};
 
 //Función Saldo total
 function saldoTotal() {
@@ -184,13 +184,34 @@ function saldoTotal() {
   }
 
   return resultado;
-}
+};
 
-function mostrarTotal(total) {
+//Función mostrar total
+function mostrarTotal(saldoTotal) {
 
-  return (saldo.innerHTML = `$${mostrarMoneda(total)}`);
+  const saldo = document.getElementById('saldo');
+  const saldoUsd = document.getElementById('saldo-usd');
 
-}
+  saldo.innerHTML = `$ ${mostrarMoneda(saldoTotal)}`;
+
+  
+  verdes().then((data)=>{
+    //console.log(data);
+
+    let totalUsd = saldoTotal / data.venta;
+
+         if (totalUsd < 0) {
+          saldoUsd.style.color = 'var(--rojo)';
+        } else {
+          saldoUsd.style.color = 'var(--negro)';
+        }
+
+         saldoUsd.innerText = `(${mostrarMoneda(parseFloat(totalUsd).toFixed(2))} USD)`;
+  });
+  
+  
+
+};
 
 //Función de busqueda de operaciones
 function buscarOperacion() {
@@ -208,26 +229,53 @@ function buscarOperacion() {
 
     mostrarDetalle(operacionesFiltradas);
   });
-}
+};
 
-//Función par input date ---->>> a chequear 
-/* function fechaInput() {
-    var fecha = new Date(); //Fecha actual
-    var mes = fecha.getMonth()+1; //obteniendo mes
-    var dia = fecha.getDate(); //obteniendo dia
-    var ano = fecha.getFullYear(); //obteniendo año
-    if(dia<10)
-      dia='0'+dia; //agrega cero si el menor de 10
-    if(mes<10)
-      mes='0'+mes //agrega cero si el menor de 10
-    document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
-  } */
 
 function mostrarMoneda(numero) {
   const numeroConDecimales = Number(numero).toFixed(2);
   const numeroFormateado = numeroConDecimales.replace(/\./g, 'temp').replace(/\B(?=(\d{3})+(?!\d))/g, '.').replace('temp', ',');
   return numeroFormateado;
 }
+
+//Consumo API
+const verdes = async()=> {
+  const urlBlue = 'https://dolarapi.com/v1/dolares/blue';
+  //try
+  try {
+      //fetch con await
+      const response = await fetch(urlBlue, {
+          header: 'Accept: application/json'
+      });
+
+      /* console.log(response);
+      console.log(response.status) */
+
+      //IFs de STATUS
+      if (response.status === 200) {
+            
+          //acceder a la información
+          const data = await response.json();
+
+         return data;
+
+      } else if (response.status === 401) {
+          console.log('Estado 401: No tienes autoridad para acceder al recurso');
+      }  else if (response.status === 403) {
+          console.log('Estado 403: No tienes permisos para acceder');
+      }  else if (response.status === 404) {
+          console.log('Estado 404: Recurso no encontrado');
+      }  else if (response.status === 500) {
+          console.log('Estado 500: Error en el servidor');
+      } else {
+          console.log('Error desconocido');
+      }
+    
+  //catch
+  } catch (error) {
+      console.log(error);
+  }
+};
 
 /*---EVENTOS---*/
 

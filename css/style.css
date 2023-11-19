@@ -106,7 +106,7 @@ button {
 
 /*HEADER*/
 
-header {
+/* header {
     padding: 20px;
     display: flex;
     align-items: center;
@@ -118,7 +118,7 @@ header {
 .menu {
     display: flex;
     gap: 20px;
-}
+} */
 
 /*MAIN*/
 
@@ -129,7 +129,12 @@ main {
    
 }
 
-.cabecera {
+
+.dolar {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 20px;
     padding: 20px;
     border: solid 1px var(--gris);
     border-radius: 4px;
@@ -137,7 +142,34 @@ main {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+.cabecera {
+    margin: 10px;
+    display: flex;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+}
 
+.cabecera .info-cabecera {
+    border: solid 1px var(--gris-claro);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    width: max-content;
+    margin: 5px auto 0 auto;
+    padding: 10px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    height: 120px;
+    width: 320px;
+}
+
+
+.cabecera .blue-cabecera .fecha-blue {
+    font-size: var(--fuente-chica);
+}
 .cuerpo {
     display: flex;
     flex-direction: column; 
@@ -248,7 +280,15 @@ main {
 @media (min-width: 768px){
 
     .cabecera {
-        margin: 10px;
+        flex-direction: row;
+    }
+
+    .cabecera .info-cabecera {
+        margin: 5px 0 0 0;
+    }
+    
+    .dolar .fecha-actualizacion {
+        display: block;
     }
 
     .cuerpo {
