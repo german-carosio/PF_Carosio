@@ -169,13 +169,9 @@ main {
     align-items: center;
     gap: 5px;
     height: 120px;
-    width: 300px;
+    width: max-content;
 }
 
-
-.cabecera .blue-cabecera .fecha-blue {
-    font-size: var(--fuente-chica);
-}
 .cuerpo {
     display: flex;
     flex-direction: column; 
@@ -263,7 +259,7 @@ main {
 }
 
 .trash i {
-    font-size: var(--fuente-grande);
+    font-size: var(--fuente-normal);
 }
 
 .trash:hover {
