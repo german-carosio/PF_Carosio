@@ -6,12 +6,11 @@ const detalle = document.getElementById('detalle');
 const monto = document.getElementById('monto');
 const deleteAll = document.getElementById('deleteAll');
 const msj = document.getElementById('msj');
-const btnForm = document.getElementById('btn-form');
 
 /*---FUNCIONES---*/
 
 //Función que recarga la tabla con todas las operacion
-function mostrarDetalle(operaciones) {
+const mostrarDetalle = (operaciones)=> {
 
   const tabla = document.getElementById('tabla');
 
@@ -48,7 +47,7 @@ function mostrarDetalle(operaciones) {
 };
 
 //Función cargar operacion
-function cargarOperacion() {
+const cargarOperacion = ()=> {
 
   //validando que los campos no esten vacíos
   if (tipo.value == "" || detalle.value == "" || monto.value == "" || fecha.value == "") {
@@ -106,7 +105,7 @@ function cargarOperacion() {
 };
 
 //Funcion eliminar operacion
-function eliminarOperacion(id) {
+const eliminarOperacion = (id)=> {
 
   const index = operaciones.findIndex((item) => {
     return item.id === id;
@@ -161,7 +160,7 @@ function eliminarOperacion(id) {
 };
 
 //Función Saldo total
-function saldoTotal() {
+const saldoTotal = ()=> {
 
   //inicio resultado en cero
   let resultado = 0;
@@ -187,34 +186,41 @@ function saldoTotal() {
 };
 
 //Función mostrar total
-function mostrarTotal(saldoTotal) {
+const mostrarTotal = (saldoTotal)=> {
 
   const saldo = document.getElementById('saldo');
   const saldoUsd = document.getElementById('saldo-usd');
 
   saldo.innerHTML = `$ ${mostrarMoneda(saldoTotal)}`;
 
+    conversionUsd(saldoTotal)
+    .then((totalUsd)=>{
+
+      if (totalUsd < 0) {
+        saldoUsd.style.color = 'var(--rojo)';
+      } else {
+        saldoUsd.style.color = 'var(--negro)';
+      }
+      
+      saldoUsd.innerText = `(${mostrarMoneda(totalUsd)} USD)`;
+
+    })
+    .catch((err)=>{
+      console.log(err);
+    });
   
-  verdes().then((data)=>{
-    //console.log(data);
-
-    let totalUsd = saldoTotal / data.venta;
-
-         if (totalUsd < 0) {
-          saldoUsd.style.color = 'var(--rojo)';
-        } else {
-          saldoUsd.style.color = 'var(--negro)';
-        }
-
-         saldoUsd.innerText = `(${mostrarMoneda(parseFloat(totalUsd).toFixed(2))} USD)`;
-  });
-  
-  
-
 };
 
+//Función convertir en dolares actualizado
+const conversionUsd = async (monto)=> {
+
+ let datos= await verdes();
+
+  return monto / datos.venta;
+}
+
 //Función de busqueda de operaciones
-function buscarOperacion() {
+const buscarOperacion = () => {
 
   const inputBuscar = document.getElementById('input-buscar');
 
@@ -232,7 +238,7 @@ function buscarOperacion() {
 };
 
 
-function mostrarMoneda(numero) {
+const mostrarMoneda = (numero)=> {
   const numeroConDecimales = Number(numero).toFixed(2);
   const numeroFormateado = numeroConDecimales.replace(/\./g, 'temp').replace(/\B(?=(\d{3})+(?!\d))/g, '.').replace('temp', ',');
   return numeroFormateado;
@@ -272,8 +278,8 @@ const verdes = async()=> {
       }
     
   //catch
-  } catch (error) {
-      console.log(error);
+  } catch (err) {
+      console.log(err);
   }
 };
 

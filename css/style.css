@@ -104,6 +104,12 @@ button {
     box-shadow: none !important;
 }
 
+.swal2-styled.swal2-cancel {
+    background: var(--blanco) !important;
+    color: var(--azul);
+    border: solid 1px var(--azul);
+    padding: 10px 25px;
+}
 /*HEADER*/
 
 /* header {
@@ -163,7 +169,7 @@ main {
     align-items: center;
     gap: 5px;
     height: 120px;
-    width: 320px;
+    width: 300px;
 }
 
 
@@ -177,9 +183,6 @@ main {
     padding: 20px 0;
 }
 
-/* section {
-    padding: 20px 20px;
-} */
 
 /*INGRESOS - EGRESOS*/
 
