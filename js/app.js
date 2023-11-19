@@ -193,8 +193,7 @@ const mostrarTotal = (saldoTotal)=> {
 
   saldo.innerHTML = `$ ${mostrarMoneda(saldoTotal)}`;
 
-    conversionUsd(saldoTotal)
-    .then((totalUsd)=>{
+    conversionUsd(saldoTotal).then((totalUsd)=>{
 
       if (totalUsd < 0) {
         saldoUsd.style.color = 'var(--rojo)';
@@ -204,8 +203,7 @@ const mostrarTotal = (saldoTotal)=> {
       
       saldoUsd.innerText = `(${mostrarMoneda(totalUsd)} USD)`;
 
-    })
-    .catch((err)=>{
+    }) .catch((err)=>{
       console.log(err);
     });
   
@@ -213,10 +211,14 @@ const mostrarTotal = (saldoTotal)=> {
 
 //Función convertir en dolares actualizado
 const conversionUsd = async (monto)=> {
-
- let datos= await verdes();
+try{
+  let datos= await verdes();
 
   return monto / datos.venta;
+} catch (err) {
+  console.log(err);
+}
+ 
 }
 
 //Función de busqueda de operaciones
